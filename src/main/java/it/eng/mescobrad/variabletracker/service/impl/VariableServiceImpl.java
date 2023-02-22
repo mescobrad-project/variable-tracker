@@ -1,6 +1,7 @@
 package it.eng.mescobrad.variabletracker.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,17 @@ public class VariableServiceImpl implements VariableService {
     private VariableConfig config;
 
     @Override
-    public ResponseEntity<List<VariableDTO>> matchVariable(String variableName, String categoryName, String dataType) {
+    public ResponseEntity<List<VariableDTO>> matchVariable(String variableName, List<String> categoryNames, String dataType) {
 
-        String requestPath = String.format("/variables?select=*,concept:concepts(name,type)&name=like.*%s*&concept.name=like.*%s*&data_type=like.*%s*", variableName, categoryName, dataType);
+        StringBuilder requestPath = new StringBuilder();
+        requestPath.append(String.format("/variables?select=*,concept:concepts(name,type)&name=like.*%s*", variableName));
+        requestPath.append("&concepts.or=(");
+        requestPath.append(categoryNames.stream().map(name -> String.format("name.like.*%s*", name)).collect(Collectors.joining(",")));
+        requestPath.append(")");
+        requestPath.append(String.format("&data_type=like.*%s*", dataType));
 
         WebClient.Builder builder = WebClient.builder();
-        WebClient client = builder.baseUrl(config.getHost() + requestPath).build();
+        WebClient client = builder.baseUrl(config.getHost() + requestPath.toString()).build();
 
         try {
             Flux<VariableDTO> variables = client.get().exchangeToFlux(response -> {

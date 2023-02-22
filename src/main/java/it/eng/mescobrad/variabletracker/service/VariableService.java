@@ -8,6 +8,6 @@ import it.eng.mescobrad.variabletracker.model.VariableDTO;
 
 public interface VariableService {
 
-    ResponseEntity<List<VariableDTO>> matchVariable(String variableName, String categoryName, String dataType);
+    ResponseEntity<List<VariableDTO>> matchVariable(String variableName, List<String> categoryNames, String dataType);
     
 }
