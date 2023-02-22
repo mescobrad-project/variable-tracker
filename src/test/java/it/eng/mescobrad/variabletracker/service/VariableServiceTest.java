@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,12 @@ public class VariableServiceTest {
     void canMatchVariable() {
         //Given
         String variableName = "Sleep";
-        String categoryName = "Sleep";
+        List<String> categoryNames = Arrays.asList("Disorder","Onset");
         String dataType = "boolean";
         //When
-        ResponseEntity<List<VariableDTO>> testresult = this.underTest.matchVariable(variableName, categoryName, dataType);
+        ResponseEntity<List<VariableDTO>> testresult = this.underTest.matchVariable(variableName, categoryNames, dataType);
         //Then
-        assertDoesNotThrow(() -> this.underTest.matchVariable(variableName, categoryName, dataType));
+        assertDoesNotThrow(() -> this.underTest.matchVariable(variableName, categoryNames, dataType));
         assertNotNull(testresult);
     }
     
