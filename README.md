@@ -1,15 +1,8 @@
-# Project Title
-
-Choose and leave only one of the following badge
+# Variable Tracker
 
 ![REPO-TYPE](https://img.shields.io/badge/repo--type-backend-critical?style=for-the-badge&logo=github)
-![REPO-TYPE](https://img.shields.io/badge/repo--type-frontend-green?style=for-the-badge&logo=github)
-![REPO-TYPE](https://img.shields.io/badge/repo--type-automation-9cf?style=for-the-badge&logo=github)
 
-
-One Paragraph of project description goes here.
-
-More detailed infos here.
+A microservice used to track similar variables from Metadata Manager.
 
 ## Getting Started
 
@@ -17,62 +10,54 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+* Java 17
+* Maven 3.6.3
+* Metadata Manager with data
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+#### Kubernetes (remotely)
 
-Say what the step will be
+If you use a remote instance of Kubernetes you can start Variable Tracker simply through docker compose.
 
-```
-Give the example
-```
+To start it on your local development environment, do the following steps:
 
-And repeat
+- Checkout the code from this repository
 
 ```
-until finished
-```
+ git clone https://github.com/mescobrad-project/variable-tracker
+ ```
+ 
+ - Move into checked out folder and compile the code
 
-End with an example of getting some data out of the system or using it for a little demo
+```
+cd variable-tracker
+
+mvn clean install
+```
+- Configure the environment variables: add variable (variable.host) pointing to the host of Metadata Manager.
+- Run the application through docker compose
+
+```
+cd docker
+
+docker-compose up
+```
+## Usage
+
+Application accepts POST request to path /variables which must include 3 parameters:
+- variableName -> part of the name of the variable to check against
+- categoryName -> part of the name of the category to check against
+- dataType -> data type to check against
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+Launch `mvn test` to execute the unit tests
 
 ## Built With
 
 * [SpringBoot](http://springboot.io) - The Java framework used
 * [Maven](https://maven.apache.org/) - Dependency Management
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -80,16 +65,5 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Name Surname** - *Role* - [githubnickname](github_profile_url)
-
-See also the list of [contributors](contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* **Igor Molnar** - *Initial work* - [imolnar92](https://github.com/imolnar92)
+* **Antonino Sirchia** - *Team Lead* - [sirnino](https://github.com/sirnino)
