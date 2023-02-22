@@ -17,8 +17,8 @@ public class VariableControllerImpl implements VariableController {
     private VariableService service;
 
     @Override
-    public ResponseEntity<List<VariableDTO>> getFilteredVariables(String variableName, String categoryName, String dataType) {
-        return service.matchVariable(variableName, categoryName, dataType);
+    public ResponseEntity<List<VariableDTO>> getFilteredVariables(String variableName, List<String> categoryNames, String dataType) {
+        return service.matchVariable(variableName, categoryNames, dataType);
     }
     
 }

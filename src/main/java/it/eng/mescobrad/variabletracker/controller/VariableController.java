@@ -13,6 +13,6 @@ import it.eng.mescobrad.variabletracker.model.VariableDTO;
 public interface VariableController {
 
     @PostMapping("")
-    public ResponseEntity<List<VariableDTO>> getFilteredVariables(@RequestParam String variableName, @RequestParam String categoryName, @RequestParam String dataType);
+    public ResponseEntity<List<VariableDTO>> getFilteredVariables(@RequestParam String variableName, @RequestParam List<String> categoryNames, @RequestParam String dataType);
     
 }

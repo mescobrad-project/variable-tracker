@@ -23,7 +23,7 @@ public class VariableControllerTest {
     void testServerUp() throws Exception {
         this.mockMvc.perform(post("/variables")
         .param("variableName", "Sleep")
-        .param("categoryName", "Sleep")
+        .param("categoryNames", "Disorder","Onset")
         .param("dataType", "boolean"))
         .andExpect(status().isOk());
     }
