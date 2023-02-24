@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: variable-tracker
+    app: variable
+    variable.component: variable-tracker
+  name: variable-tracker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: variable-tracker
+  template:
+    metadata:
+      labels:
+        io.kompose.service: variable-tracker
+        app: variable
+        variable.component: variable-tracker
+    spec:
+      containers:
+      - image: 237944624957.dkr.ecr.eu-south-1.amazonaws.com/variable-tracker:1.0.0
+        resources:
+         limits:
+          memory: 512Mi
+          cpu: "1"
+         requests:
+          memory: 256Mi
+          cpu: "0.2"
+        imagePullPolicy: "Always"
+        name: variable-tracker
+        ports:
+        - containerPort: 8080
+        env:     
+        - name: VARIABLE_HOST
+          value: "https://api-variable.mescobrad.digital-enabler.eng.it"
+      restartPolicy: Always
