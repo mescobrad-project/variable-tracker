@@ -1,0 +1,26 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    kubernetes.io/tls-acme: "true"
+  labels:
+    io.kompose.service: variable-tracker
+    app: variable
+    variable.component: variable-tracker
+  name: variable-tracker
+spec:
+  host: api-variable.mescobrad.digital-enabler.eng.it
+  port:
+    targetPort: "8080"
+  to:
+    kind: Service
+    name: variable-tracker
+    weight: 100
+  wildcardPolicy: None
+
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+
+---
+
